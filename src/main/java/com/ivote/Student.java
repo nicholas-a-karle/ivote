@@ -40,4 +40,8 @@ public class Student {
                ", id='" + id + '\'' +
                '}';
     }
+
+    public String toFullDisplayString() {
+        return String.format("%-24s", this.name) + this.id;
+    }
 }

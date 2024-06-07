@@ -6,6 +6,8 @@ import java.util.List;
 public class Question {
     private String text;
     private List<String> answers;
+    private String id;
+    private boolean singleChoice; //TODO!!!
 
     // Constructors
     public Question() {
@@ -15,6 +17,10 @@ public class Question {
     public Question(String text, List<String> answers) {
         this.text = text;
         this.answers = answers != null ? new ArrayList<>(answers) : new ArrayList<>();
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     // Getter for text
@@ -49,6 +55,10 @@ public class Question {
         return this.answers.remove(answer);
     }
 
+    public int getNumAnswers() {
+        return answers.size();
+    }
+
     // Override toString for better readability
     @Override
     public String toString() {
@@ -56,5 +66,14 @@ public class Question {
                "text='" + text + '\'' +
                ", answers=" + answers +
                '}';
+    }
+
+    public String toDisplayString() {
+        String str = "";
+        str += text;
+        for (int i = 0; i < answers.size(); ++i) {
+            str += "\n" + (i+1) + ".\t" + answers.get(i);
+        }
+        return str;
     }
 }

@@ -22,6 +22,24 @@ public class IVoteDatabase extends Database {
         createCollection(sc = studentsCollection);
     }
 
+    public String getDatabaseState() {
+        String str = "";
+
+        str += "DATABASE________________\n";
+        str += "uri: \t" + uri + "\n";
+        str += "dbname: \t" + dbname + "\n";
+        str += "questions collection: " + qc + "\n";
+        str += "students collection: " + sc + "\n";
+        str += "all collections: \n";
+        for (String collection : this.collections) {
+            str += "\t\t\t" + collection;
+            if (collection == currentCollectionName) str += " \t<--\n";
+            else str += "\n";
+        }
+
+        return str;
+    }
+
     public ObjectId addQuestion(String text, List<String> answers) {
         Document question = new Document();
         
@@ -79,7 +97,7 @@ public class IVoteDatabase extends Database {
         return new Question(qd.get("text").toString(), answers);
     }
 
-    public boolean addStudentAnswer(ObjectId studentId, String questionId, int answer) {
+    public boolean addStudentAnswer(String studentId, String questionId, List<Integer> answer) {
         // checking questions collection
         MongoCollection<Document> collection = database.getCollection(qc);
         try {
@@ -119,6 +137,16 @@ public class IVoteDatabase extends Database {
         this.setCurrentCollection(qc);
         return this.removeDocument(qid);
     }
+
+    public int getNumStudents() {
+        this.setCurrentCollection(sc);
+        return this.getCollectionSize();
+    }
+
+    public int getNumQuestions() {
+        this.setCurrentCollection(qc);
+        return this.getCollectionSize();
+    }   
 
     
 }

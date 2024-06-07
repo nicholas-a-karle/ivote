@@ -23,7 +23,9 @@ public class Database {
     protected MongoCollection<Document> currentCollection;
     protected List<String> collections;
     protected String currentCollectionName;
-    protected int cleanupCounter;
+
+    protected String uri;
+    protected String dbname;
 
     /**
      * Constructs a new Database object with the specified MongoDB connection URI and database name.
@@ -37,7 +39,8 @@ public class Database {
         this.collections = new ArrayList<>();
         this.currentCollectionName = null;
         this.currentCollection = null;
-        this.cleanupCounter = 0;
+        this.uri = uri;
+        this.dbname = dbName;
     }
 
     /* COLLECTIONS WORK
@@ -235,6 +238,10 @@ public class Database {
             System.err.println("An error occurred while removing the document: " + e.getMessage());
             return false;
         }
+    }
+
+    public int getCollectionSize() {
+        return (int) currentCollection.countDocuments();
     }
 
     /**
