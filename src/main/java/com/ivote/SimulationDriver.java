@@ -45,7 +45,7 @@ public class SimulationDriver {
                 System.out.println("3.\tAdmin Login");
                 System.out.println("4.\tExit Program");
 
-                in = sc.nextInt();
+                in = Integer.valueOf(sc.nextLine());
 
                 switch (in) {
                     case 1: stage = 2; break;
@@ -86,7 +86,7 @@ public class SimulationDriver {
                     System.out.println("" + (pageLength+1) + "Prev Page");
                 }
 
-                in = sc.nextInt();
+                in = Integer.valueOf(sc.nextLine());;
                 if (in == pageLength + 1) {
                     if (page < maxPage) {
                         // Next page
@@ -144,7 +144,7 @@ public class SimulationDriver {
                 System.out.println("6.\tReturn");
                 System.out.println("7.\tExit Program");
 
-                in = sc.nextInt();
+                in = Integer.valueOf(sc.nextLine());;
 
                 switch (in) {
                     case 1: stage = 5; break;
@@ -173,8 +173,10 @@ public class SimulationDriver {
                 
             System.out.println("Enter STOP to end.\nEnter the student's name: \n");
 
+
                 strin = sc.nextLine();
-                if (strin != "STOP") {
+                if (!strin.equals("STOP")) {
+                    System.err.println(strin);
                     vs.addStudent(strin);
                 } else {
                     stage = 4;
@@ -184,13 +186,15 @@ public class SimulationDriver {
 
             case 7: // Add questions
 
-                System.out.println("Enter STOP to end.\nEnter the question text: \n");
-                strin = sc.nextLine();
-                if (strin != "STOP") {
+                System.out.println("Enter STOP to end.\nEnter the question text:\n");
+                while (strin.equals("")) strin = sc.nextLine();
+
+                if (!strin.equals("STOP")) {
                     String text = strin;
                     List<String> answers = new ArrayList<>();
-                    System.out.println("Great! Now enter the answer options:");
-                    while (strin != "STOP") {
+                    System.out.println("Now enter the answer options, type END to end this process:");
+                    while (!strin.equals("END")) {
+
                         answers.add(strin = sc.nextLine());
                     }
                     vs.addQuestion(text, answers);
@@ -207,7 +211,7 @@ public class SimulationDriver {
                 vs = new VotingService(uri, dbname);
 
                 System.out.println("New Database and Voting Service Initialized.\n\n\n\nPress any key to continue...");
-                sc.nextLine();                
+                sc.nextLine();
                 
                 stage = 4;
                 break;
@@ -223,11 +227,12 @@ public class SimulationDriver {
                 System.out.println("2.\tReturn");
                 System.out.println("3.\tExit Program");
 
-                in = sc.nextInt();
+                in = Integer.valueOf(sc.nextLine());;
 
                 switch (in) {
                     case 1: stage = 11; break;
                     case 2: stage = 1; break;
+
                     case 3: stage = -1; break;
                     default: break;
                 }
@@ -254,8 +259,8 @@ public class SimulationDriver {
     }
 
     public static void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        //System.out.print("\033[H\033[2J");
+        //System.out.flush();
     }
 }
 

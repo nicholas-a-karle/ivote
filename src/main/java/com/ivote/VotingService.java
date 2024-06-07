@@ -30,6 +30,8 @@ public class VotingService {
 
     public VotingService(String uri, String dbName) {
         this.db = new IVoteDatabase(uri, dbName, "ivotequestions", "ivotevoters");
+        qids = new ArrayList<>();
+        sids = new ArrayList<>();
         loggedIn = false;
         adminLoggedIn = false;
         user = null;
@@ -37,6 +39,8 @@ public class VotingService {
 
     public VotingService() {
         this.db = new IVoteDatabase("mongodb://localhost:27017", "ivotedatabase", "ivotequestions", "ivotevoters");
+        qids = new ArrayList<>();
+        sids = new ArrayList<>();
         loggedIn = false;
         adminLoggedIn = false;
         user = null;
